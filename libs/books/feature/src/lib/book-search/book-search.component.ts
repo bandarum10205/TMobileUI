@@ -5,10 +5,13 @@ import {
   clearSearch,
   getAllBooks,
   ReadingListBook,
-  searchBooks
+  searchBooks,
+  removeFromReadingList,
+  getReadingList
 } from '@tmo/books/data-access';
 import { FormBuilder } from '@angular/forms';
-import { Book } from '@tmo/shared/models';
+import { Book, ReadingListItem } from '@tmo/shared/models';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'tmo-book-search',
@@ -17,6 +20,7 @@ import { Book } from '@tmo/shared/models';
 })
 export class BookSearchComponent implements OnInit {
   books: ReadingListBook[];
+  readingList$ = this.store.select(getReadingList);
 
   searchForm = this.fb.group({
     term: ''
@@ -24,7 +28,8 @@ export class BookSearchComponent implements OnInit {
 
   constructor(
     private readonly store: Store,
-    private readonly fb: FormBuilder
+    private readonly fb: FormBuilder,
+    public snackBar: MatSnackBar
   ) {}
 
   get searchTerm(): string {
@@ -45,6 +50,15 @@ export class BookSearchComponent implements OnInit {
 
   addBookToReadingList(book: Book) {
     this.store.dispatch(addToReadingList({ book }));
+    this.snackBar.open('added successfully');
+  }
+
+  removeFromReadingList(book: Book) {
+    
+    let item = {bookId: book.id}
+    // let book = this.readingList$.find(list => list.id === item.id)
+    this.store.dispatch(removeFromReadingList({ item }));
+    this.snackBar.open('removed successfully');
   }
 
   searchExample() {

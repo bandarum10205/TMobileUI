@@ -35,10 +35,19 @@
               mat-flat-button
               color="primary"
               (click)="addBookToReadingList(b)"
-              [disabled]="b.isAdded"
+              *ngIf = "!b.isAdded"
             >
               Want to Read
             </button>
+            <button
+              mat-flat-button
+              color="warn"
+              (click)="removeFromReadingList(b)"
+              *ngIf = "b.isAdded"
+            >
+              Want to delete
+            </button>
+            
           </div>
         </div>
       </div>

@@ -31,6 +31,7 @@
           </div>
           <p [innerHTML]="b.description"></p>
           <div>
+            {{b.finished ? 'finished readng' : 'reading'}}
             <button
               mat-flat-button
               color="primary"

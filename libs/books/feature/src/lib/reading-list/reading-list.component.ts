@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getReadingList, removeFromReadingList } from '@tmo/books/data-access';
-
+import { getReadingList, removeFromReadingList, updateReadingList } from '@tmo/books/data-access';
+import { StorageService } from '@tmo/shared/storage';
+import { Book, ReadingListItem } from '@tmo/shared/models';
+// const KEY = '[okreads API] Reading List';
 @Component({
   selector: 'tmo-reading-list',
   templateUrl: './reading-list.component.html',
@@ -9,10 +11,14 @@ import { getReadingList, removeFromReadingList } from '@tmo/books/data-access';
 })
 export class ReadingListComponent {
   readingList$ = this.store.select(getReadingList);
-
-  constructor(private readonly store: Store) {}
+  date = new Date().toISOString();
+  constructor(private store: Store) {}
 
   removeFromReadingList(item) {
     this.store.dispatch(removeFromReadingList({ item }));
+  }
+
+  updateReadingList(item) {
+    this.store.dispatch(updateReadingList({item}));
   }
 }

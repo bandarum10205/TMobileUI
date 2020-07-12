@@ -39,7 +39,7 @@ describe('Books Reducer', () => {
       });
 
       const result: State = reducer(state, action);
-
+      
       expect(result.ids).to.eql(['A']);
     });
 

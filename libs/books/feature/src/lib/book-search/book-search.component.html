@@ -33,6 +33,7 @@
           <div>
             <button
               mat-flat-button
+              class="want-to-read"
               color="primary"
               (click)="addBookToReadingList(b)"
               *ngIf = "!b.isAdded"
@@ -41,11 +42,12 @@
             </button>
             <button
               mat-flat-button
+              class="want-to-delete"
               color="warn"
               (click)="removeFromReadingList(b)"
               *ngIf = "b.isAdded"
             >
-              Want to delete
+              Want to Delete
             </button>
             
           </div>

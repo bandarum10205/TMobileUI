@@ -1,5 +1,5 @@
 <ng-container *ngIf="(readingList$ | async).length > 0; else empty">
-  <div *ngFor="let b of readingList$ | async" >
+  <div *ngFor="let b of readingList$ | async" [hidden]="b.finished">
     <div class="reading-list-item" *ngIf="!b.finished">
       <div>
         <img class="reading-list-item--cover" [src]="b.coverUrl" />
@@ -22,6 +22,7 @@
         </button>
         <button
           mat-icon-button
+          class="finish-reading"
           color="primary"
           [attr.aria-label]="'Done ' + b.title + ' from reading list'"
           (click)="updateReadingList(b)"
@@ -38,7 +39,7 @@
 
 
 
-<p>Finished Reading</p>
+<p class="finished-reading-books">Finished Reading</p>
 <ng-container *ngIf="(readingList$ | async).length > 0; else empty1">
   <div *ngFor="let b of readingList$ | async">
     <div class="reading-list-item"  *ngIf="b.finished">
